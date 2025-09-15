@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card p-3 mb-3">
+        <h5>Total comments</h5>
+        <h2>{{ total }}</h2>
+      </div>
+      <div class="card p-3">
+        <canvas id="sentimentChart" width="400" height="300"></canvas>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <h5>Recent comments</h5>
+      <ul class="list-group">
+        {% for c in recent %}
+          <li class="list-group-item">
+            <small class="text-muted">{{ c.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
+            <br>
+            <strong>{{ c.name }}</strong> — <em>{{ c.sentiment }}</em>
+            <p>{{ c.text[:220] }}{% if c.text|length > 220 %}...{% endif %}</p>
+          </li>
+        {% else %}
+          <li class="list-group-item">No recent comments</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // request sentiment counts from API and draw Chart.js pie
+  fetch("{{ url_for('sentiment_data_api') }}")
+    .then(r => r.json())
+    .then(data => {
+      const ctx = document.getElementById('sentimentChart').getContext('2d');
+      const chart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Positive','Negative','Neutral'],
+          datasets: [{
+            label: 'Sentiment',
+            data: [data.positive, data.negative, data.neutral]
+          }]
+        },
+        options: {
+          responsive: true
+        }
+      });
+    });
+</script>
+{% endblock %}

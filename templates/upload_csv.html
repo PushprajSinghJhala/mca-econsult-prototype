@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Upload CSV{% endblock %}
+{% block content %}
+  <h3>Upload CSV of Comments</h3>
+  <p>CSV columns: <code>name,email,pan,comment</code></p>
+  <form method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+      <input type="file" name="file" accept=".csv" class="form-control" />
+    </div>
+    <button class="btn btn-primary">Upload</button>
+  </form>
+{% endblock %}

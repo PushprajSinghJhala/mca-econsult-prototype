@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Comments{% endblock %}
+{% block content %}
+  <h3>All Comments</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr><th>#</th><th>Time</th><th>Name</th><th>Sentiment</th><th>Text</th></tr>
+    </thead>
+    <tbody>
+      {% for c in comments %}
+        <tr>
+          <td>{{ c.id }}</td>
+          <td>{{ c.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+          <td>{{ c.name }} <br><small>{{ c.pan_masked }}</small></td>
+          <td>{{ c.sentiment }}</td>
+          <td>{{ c.text[:140] }}{% if c.text|length > 140 %}...{% endif %}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% if pagination.pages > 1 %}
+    <nav>
+      <ul class="pagination">
+        {% if pagination.has_prev %}
+          <li class="page-item"><a class="page-link" href="{{ url_for('comments', page=pagination.prev_num) }}">Previous</a></li>
+        {% endif %}
+        <li class="page-item disabled"><span class="page-link">Page {{ pagination.page }} / {{ pagination.pages }}</span></li>
+        {% if pagination.has_next %}
+          <li class="page-item"><a class="page-link" href="{{ url_for('comments', page=pagination.next_num) }}">Next</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  {% endif %}
+{% endblock %}

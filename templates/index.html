@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+  <div class="row">
+    <div class="col-md-8">
+      <h3>Welcome to MCA eConsult Prototype</h3>
+      <p>Analyze public comments, see sentiment, and help policymakers.</p>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-dark bg-light mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Stats</h5>
+          <p>Total comments: <strong>{{ total }}</strong></p>
+          <p>Registered users: <strong>{{ users }}</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h5>Recent comments</h5>
+  <ul class="list-group">
+    {% for c in recent %}
+      <li class="list-group-item">
+        <small class="text-muted">{{ c.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
+        <br>
+        <strong>{{ c.name }}</strong> — <em>{{ c.sentiment }}</em>
+        <p>{{ c.text[:200] }}{% if c.text|length > 200 %}...{% endif %}</p>
+      </li>
+    {% else %}
+      <li class="list-group-item">No comments yet.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

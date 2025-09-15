@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+  <h3>Register on MCA21 (prototype)</h3>
+  <form method="post" class="mt-3">
+    <div class="mb-3">
+      <label class="form-label">Full name</label>
+      <input class="form-control" name="name" required />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input type="email" class="form-control" name="email" required />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">PAN</label>
+      <input class="form-control" name="pan" required />
+      <div class="form-text">You can register even if you are not filing income tax. PAN is used as ID.</div>
+    </div>
+    <button class="btn btn-primary">Register</button>
+  </form>
+{% endblock %}
