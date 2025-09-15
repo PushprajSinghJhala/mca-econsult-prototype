@@ -2,6 +2,8 @@ Flask
 SQLAlchemy
 Flask-SQLAlchemy
 python-dotenv
-torch
-transformers
 gunicorn
+
+# Instead of full PyTorch + transformers
+torch==2.2.2+cpu -f https://download.pytorch.org/whl/cpu/torch_stable.html
+transformers==4.44.2
