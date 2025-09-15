@@ -3,5 +3,5 @@ SQLAlchemy==2.0.19
 Flask-SQLAlchemy==3.0.3
 python-dotenv==1.0.0
 torch
-transformer
+transformers
 gunicorn
